@@ -9,14 +9,28 @@ import { NoteRo } from "./dto/apiDto";
 
 function App(): JSX.Element {
   const [taskList, setTaskList] = useState<NoteRo[]>([]);
+  const [isAdding, setIsAdding] = useState<boolean>(false);
 
   return (
     <div className="app">
-      <div className="title">TODO LIST</div>
-      <div className="taskPanel">
-        <TaskForm taskList={taskList} setTaskList={setTaskList} />
-        <List taskList={taskList} setTaskList={setTaskList} />
+      <div className="title">
+        <div className="empty"></div>
+        <p>Nest Todolist powered by React</p>
+        <button className="buttonAdd" onClick={() => setIsAdding(!isAdding)}>
+          +
+        </button>
       </div>
+      {isAdding ? (
+        <TaskForm
+          taskList={taskList}
+          setTaskList={setTaskList}
+          setIsAdding={setIsAdding}
+        />
+      ) : (
+        <div className="taskPanel">
+          <List taskList={taskList} setTaskList={setTaskList} />
+        </div>
+      )}
     </div>
   );
 }

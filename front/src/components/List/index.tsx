@@ -11,13 +11,14 @@ function List(props: {
   taskList: NoteRo[];
   setTaskList: (val: NoteRo[]) => void;
 }) {
+  const { setTaskList } = props;
   useEffect(() => {
     async function loadTask() {
       const allTasks: AxiosResponse<NoteRo[]> = await Requester.getNotes();
-      if (allTasks.data) props.setTaskList(allTasks.data);
+      if (allTasks.data) setTaskList(allTasks.data);
     }
     loadTask();
-  }, []);
+  }, [setTaskList]);
 
   return (
     <div className="taskList">
